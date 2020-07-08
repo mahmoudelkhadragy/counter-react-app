@@ -3,44 +3,42 @@ import { getMovies } from '../services/fakeMovieService';
 
 class Movies extends Component {
     state = {
-        movies: getMovies()
-    };
-
-    handleDelete = movie => {
-        const movies = this.state.movies.filter(m => m._id !== movie._id);
+        movies: getMovies(),
+    }
+    handleDeleteMovie = (movie) => {
+        const movies = this.state.movies.filter(mov => mov._id !== movie._id);
         this.setState({ movies });
-    };
-
+    }
     render() {
-        const { length: count } = this.state.movies;
-        if (count === 0) return <p>There are no Movies in the database.</p>
+        const { movies } = this.state;
+        if (movies.length === 0) return <p className="text-center my-3">There is no Movies</p>;
         return (
-            <div>
-                <p>Showing {count} movies in the database.</p>
+            <React.Fragment>
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Genre</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">type</th>
+                            <th scope="col">rate</th>
                             <th scope="col">Stock</th>
-                            <th scope="col">Rate</th>
-                            <th>Actions</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.movies.map(movie =>
-                            <tr key={movie._id}>
-                                <td>{movie.title}</td>
-                                <td>{movie.genre.name}</td>
-                                <td>{movie.numberInStock}</td>
-                                <td>{movie.dailyRentalRate}</td>
-                                <td><button onClick={() => { this.handleDelete(movie) }} className="btn btn-danger btn-sm">Delete</button></td>
-                            </tr>
+                        {movies.map(movie =>
+                            (
+                                <tr key={movie._id}>
+                                    <td>{movie.title}</td>
+                                    <td>{movie.genre.name}</td>
+                                    <td>{movie.dailyRentalRate}</td>
+                                    <td>{movie.numberInStock}</td>
+                                    <td><button onClick={() => { this.handleDeleteMovie(movie) }} className="btn btn-danger btn-sm">Delete</button></td>
+                                </tr>
+                            )
                         )}
-
                     </tbody>
                 </table>
-            </div>
+            </React.Fragment>
         );
     }
 }
