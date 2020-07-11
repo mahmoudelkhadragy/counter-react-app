@@ -5,12 +5,26 @@ class Counter extends Component {
     count: 0,
     tags: ["tag1", "tag2", "tag3"],
   };
+
+  handleIncreament = (number) => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  };
+
   render() {
     return (
-      <React.Fragment>
-        {this.state.tags.length === 0 && "Please create a new tag!"}
-        {this.renderTags()}
-      </React.Fragment>
+      <div>
+        <span className={this.changeBadgeClass()}>{this.formatCount()}</span>
+        <button
+          onClick={() => {
+            this.handleIncreament(5);
+          }}
+          className="btn btn-secondary btn-sm"
+        >
+          Increament
+        </button>
+      </div>
     );
   }
 
