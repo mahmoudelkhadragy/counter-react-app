@@ -4,6 +4,13 @@ import Navbar from "./components/Navbar";
 import Counters from "./components/Counters";
 
 class App extends Component {
+  constructor() {
+    super();
+    console.log("App-constructor");
+  }
+  componentDidMount() {
+    console.log("App -Mounted");
+  }
   state = {
     counters: [
       { id: 1, value: 4 },
@@ -17,6 +24,13 @@ class App extends Component {
     const index = counters.indexOf(counter);
     counters[index] = { ...counter };
     counters[index].value++;
+    this.setState({ counters });
+  };
+  handleDecreament = (counter) => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value--;
     this.setState({ counters });
   };
 
@@ -42,6 +56,7 @@ class App extends Component {
         <main className="container">
           <Counters
             onIncreament={this.handleIncreament}
+            onDecreament={this.handleDecreament}
             onDelete={this.handleDelete}
             onReset={this.handleReset}
             counters={this.state.counters}

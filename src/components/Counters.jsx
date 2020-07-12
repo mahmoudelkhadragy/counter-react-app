@@ -3,21 +3,25 @@ import Counter from "./Counter";
 
 class Counters extends Component {
   render() {
-    const { counters } = this.props;
+    const {
+      counters,
+      onReset,
+      onDelete,
+      onIncreament,
+      onDecreament,
+    } = this.props;
     if (counters.length === 0)
       return <p className="text-center">There is no Counters</p>;
     return (
       <React.Fragment>
-        <button
-          onClick={this.props.onReset}
-          className="btn btn-primary btn-sm m-2"
-        >
+        <button onClick={onReset} className="btn btn-primary btn-sm m-2">
           Reset
         </button>
-        {this.props.counters.map((counter) => (
+        {counters.map((counter) => (
           <Counter
-            onDelete={this.props.onDelete}
-            onIncreament={this.props.onIncreament}
+            onDelete={onDelete}
+            onIncreament={onIncreament}
+            onDecreament={onDecreament}
             key={counter.id}
             counter={counter}
           />
